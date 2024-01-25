@@ -41,7 +41,16 @@ conda activate autoCOPE
 
 ## Usage
 
-* By running 'auto_design.py' file, users can get the designed transcript preprocessing protocols. The input data for autoCOPE are two .h5 files containing transcript count matrix and biological evidence matrix respectively. The output is a .npy file containing the designed graph.
+### Interpreter Case (Recommend for users)
+
+* Users can get the designed transcript preprocessing protocols by running `auto_design.py` file. Post-processed transcripts can be further obtained by running `./utils/extract_scheme_top1.py` file.
+  
+* We recommend you to conduct `auto_design.py` and `./utils/extract_scheme_top1.py` files in the python interpreter (like PyCharm) directly, and setup the parameters (Hdf5Path_ref, Hdf5Path_target, task, save_path, graph_path) following the ternimal case. Using interpreter can avoid potential unstable factors in the ternimal mode.
+
+
+### Ternimal Case
+
+* By running `auto_design.py` file, users can get the designed transcript preprocessing protocols. The input data for autoCOPE are two .h5 files containing transcript count matrix and biological evidence matrix respectively. The output is a .npy file containing the designed graph.
 
 ```terminal
 python auto_design.py --Hdf5Path_ref path_trans_count --Hdf5Path_target path_biological_evidence --task design_mode
@@ -58,7 +67,7 @@ Returns:
   The designed graph is stored in the folder './ppo_search_XXXXXXXX-XXXXXX/top_5_computation_graph/epoch49_top_0_graph.npy'
 ```
 
-* By running './utils/extract_scheme_top1.py' file, users
+* By running `./utils/extract_scheme_top1.py` file, transcript count profiles are processed through the designed graph from the first step. The input data for `./utils/extract_scheme_top1.py` are the designed .npy graph and the transcript count .h5 file. The output is a post-processed transcript count .h5 file. 
 
 ```terminal
 python ./utils/extract_scheme_top1.py --Hdf5Path_ref path_trans_count --save_path path_postprocessed_transcript --graph_path designed_graph
@@ -78,32 +87,33 @@ Returns:
 ```
 
 ## Demonstration
-We provide a demonstration of applying autoCOPE on a downsampled protein dataset profiled by CITE-seq where protein signals are biological evidences to guide the pipeline design process. The denomstration includes:
 
-* Design transcript preprocessing pipeline
+* We provide a demonstration of applying autoCOPE on a downsampled protein dataset profiled by CITE-seq where protein signals are biological evidences to guide the pipeline design process. Users can conduct the demonstration in the interpreter with default parameters easily.
 
-```terminal
-python auto_design.py --Hdf5Path_ref ./data/trans_CD8.h5 --Hdf5Path_target ./data/protein_CD8.h5 --task cell_continuous
-```
+* Alternatively, terminal commands for demonstration are supported as follows:
+  1. Design transcript preprocessing protocols
+        ```terminal
+        python auto_design.py --Hdf5Path_ref ./data/trans_CD8.h5 --Hdf5Path_target ./data/protein_CD8.h5 --task cell_continuous
+        ```
 
-* Extract post-processed transcripts
+  2. Extract post-processed transcripts
 
-```terminal
-python ./utils/extract_scheme_top1.py --graph_path ./search_PPO_20240124-214000/top_5_computation_graph/epoch_49_top_0_0.68906707_graph.npy --Hdf5Path_ref ./data/trans_CD8.h5 --save_path ./result/```
-```
+        ```terminal
+        python ./utils/extract_scheme_top1.py --graph_path ./search_PPO_20240124-214000/top_5_computation_graph/epoch_49_top_0_0.68906707_graph.npy --Hdf5Path_ref ./data/trans_CD8.h5 --save_path ./result/
+        ```
 
-* Inspect the data
+  3. Inspect the data
 
-```python
-import scanpy as sc
-path_transcript_before = './data/trans_CD8.h5'
-data = sc.read(path_transcript_before)
-data, data.X.toarray()
-
-path_transcript_before = './result/trans_processed.h5'
-data = sc.read(path_transcript_before)
-data, data.X
-```
+        ```python
+        import scanpy as sc
+        path_transcript_before = './data/trans_CD8.h5'
+        data = sc.read(path_transcript_before)
+        data, data.X.toarray()
+        
+        path_transcript_before = './result/trans_processed.h5'
+        data = sc.read(path_transcript_before)
+        data, data.X
+        ```
 
 
 ## Copyright

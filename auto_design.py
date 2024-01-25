@@ -18,8 +18,8 @@ import random
 
 parser = argparse.ArgumentParser('Transcript Preprocessing Pipelines Auto-Discovery')
 # Data
-parser.add_argument('--Hdf5Path_ref', type=str, default='/home/hym/projects_dir/autocope_submit_v2/data/trans_CD8.h5')
-parser.add_argument('--Hdf5Path_target', type=str, default='/home/hym/projects_dir/autocope_submit_v2/data/protein_CD8.h5')
+parser.add_argument('--Hdf5Path_ref', type=str, default='./data/trans_CD8.h5')
+parser.add_argument('--Hdf5Path_target', type=str, default='./data/protein_CD8.h5')
 
 # Policy Net architecture
 parser.add_argument('--graph_max_size', type=float, default=10)

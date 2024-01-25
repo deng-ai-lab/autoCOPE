@@ -14,11 +14,11 @@ def extracting(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('Graph Reinforcement Learning for Task-Specific Preprocess Discovery')
     # task
-    parser.add_argument('--graph_path', type=str, default='')
+    parser.add_argument('--graph_path', type=str, default='./search_PPO_20240124-214000/top_5_computation_graph/epoch_49_top_0_0.68906707_graph.npy')
     # data
-    parser.add_argument('--Hdf5Path_ref', type=str, default='')
+    parser.add_argument('--Hdf5Path_ref', type=str, default='./data/trans_CD8.h5')
     parser.add_argument('--Hdf5Path_target', type=str, default='')
-    parser.add_argument('--save_path', type=str, default="")
+    parser.add_argument('--save_path', type=str, default="/result/")
 
     parser.add_argument('--gpu', type=int, default=0)
     parser.add_argument('--seed', type=int, default=0, help='random seed')
